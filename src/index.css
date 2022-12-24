@@ -1,18 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
-
-* html {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: 'Open Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-black  overflow-x-hidden text-white;
+}
+
+@font-face {
+  font-family: Glusp;
+  src: url('./fonts/OTF®\ Glusp.ttf');
+}
+
+@font-face {
+  font-family: Sora-ExtraLight;
+  src: url('./fonts/Sora-ExtraLight.ttf');
+}
+@font-face {
+  font-family:Sora-Medium;
+  src: url('./fonts/Sora-Medium.ttf');
+}
+
+.flip-on-hover {
+  transform: rotate(0deg);
+  transition: transform 0.5s;
+}
+
+.flip-on-hover:hover {
+  transform: rotate(180deg);
+}
