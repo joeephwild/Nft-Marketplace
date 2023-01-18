@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-contract AneNft is ERC721URIStorage {
+contract ANENFT is ERC721URIStorage {
     address owner;
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
@@ -25,7 +25,7 @@ contract AneNft is ERC721URIStorage {
         address payable owner;
         address payable seller;
         uint256 price;
-        bool curentlyListed;
+        bool currentlyListed;
     }
 
     mapping(uint256 => listedToken) private idToListedToken;
@@ -140,5 +140,18 @@ contract AneNft is ERC721URIStorage {
     }
 
 
-    function executeSale() public {}
+    function executeSale(uint256 tokenId) public payable{
+        uint price = idToListedToken[tokenId].price;
+        require(msg.value == price, "pls submit the asking price before purchasing");
+        address seller = idToListedToken[tokenId].seller;
+        idToListedToken[tokenId].currentlyListed = true;
+        _ItemsSold.increment();
+
+        _transfer(address(this), msg.sender, tokenId);
+
+        approve(address(this), tokenId);
+
+        payable(owner).transfer(listingPrice);
+        payable(seller).transfer(msg.value);
+    }
 }
